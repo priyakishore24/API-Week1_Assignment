@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "300c72b8-bc39-42bf-8c1a-850a5a74e4f7",
+		"name": "Week_Assignments-week-1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13622993"
+	},
+	"item": [
+		{
+			"name": "ServiceNow",
+			"item": [
+				{
+					"name": "Post_request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"//Get the sysid from Post - create incident\r",
+									"// Save it to global variable \r",
+									"//Get the complete Json response\r",
+									"Resp = pm.response.json();\r",
+									"//Use the Json path to get the value and save it to Sysidd\r",
+									"Sysidd = Resp.result.sys_id;\r",
+									"//pm.globals.set(\"G_Sysid\",Resp.result.sys_id);\r",
+									"//Save it to the Global variable\r",
+									"pm.globals.set(\"Globle_sysid\",Sysidd);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"company\":\"TestLeaf\",\"closed_by\":\"Mentor\",\"due_date\":\"2-12-2022\",\"priority\":\"1\",\"sys_created_on\":\"1-12-2022\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{ServerAddress}}/api/now/table/incident",
+							"protocol": "https",
+							"host": [
+								"{{ServerAddress}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"sys_id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{ServerAddress}}/api/now/table/incident/{{Globle_sysid}}",
+							"protocol": "https",
+							"host": [
+								"{{ServerAddress}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident",
+								"{{Globle_sysid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT_Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"closed_by\":\"Priya\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{ServerAddress}}/api/now/table/incident/{{Globle_sysid}}",
+							"protocol": "https",
+							"host": [
+								"{{ServerAddress}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident",
+								"{{Globle_sysid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH_Request",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"parent\":\"API Testing\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{ServerAddress}}/api/now/table/incident/{{Globle_sysid}}",
+							"protocol": "https",
+							"host": [
+								"{{ServerAddress}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident",
+								"{{Globle_sysid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ServerAddress}}/api/now/table/incident/{{Globle_sysid}}",
+							"protocol": "https",
+							"host": [
+								"{{ServerAddress}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"table",
+								"incident",
+								"{{Globle_sysid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "/5pEla9=iEOX",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "admin",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "ServerAddress",
+			"value": "dev122539.service-now.com"
+		}
+	]
+}
